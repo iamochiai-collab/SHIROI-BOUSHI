@@ -1,0 +1,74 @@
+/* Layout: side-scrolling early-summer street on a full-bleed canvas; story card docked at the bottom, scene label on top. One daylight look by design. */
+:root{
+  --sky:#cfe9f2;
+  --ink:#2a3a4a;
+  --soft:#5d6f80;
+  --taxi:#5fb0d6;
+  --mikan:#f29a1f;
+  --leaf:#7fb35c;
+  --card:rgba(255,255,255,.9);
+  --display:"Kiwi Maru","Hiragino Maru Gothic ProN","Yu Gothic",serif;
+  --story:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%;margin:0}
+body{background:var(--sky);color:var(--ink);overflow:hidden;font-family:var(--story);-webkit-tap-highlight-color:transparent}
+#scene{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:manipulation}
+
+.top{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding-top:calc(env(safe-area-inset-top,0px) + 14px);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  transition:opacity .8s;pointer-events:none}
+.top>*{pointer-events:auto}
+.where{font-family:var(--display);font-size:14px;letter-spacing:.24em;color:var(--ink);background:rgba(255,255,255,.7);padding:4px 12px;border-radius:999px}
+.snd{font:inherit;font-size:13px;color:var(--soft);background:rgba(255,255,255,.7);border:0;border-radius:999px;padding:5px 12px;cursor:pointer}
+
+#card{position:fixed;left:0;right:0;bottom:0;
+  padding-bottom:calc(env(safe-area-inset-bottom,0px) + 18px);padding-top:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  transition:opacity .5s,transform .5s}
+#card.away{opacity:0;transform:translateY(14px);pointer-events:none}
+.inner{max-width:32em;margin:0 auto;background:var(--card);border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:12px;
+  box-shadow:0 6px 30px rgba(42,58,74,.12)}
+#line{margin:0;font-size:clamp(15px,calc(.9vw + .9vh + 6px),24px);line-height:2.3;min-height:4.6em;transition:opacity .3s;text-wrap:pretty}
+rt{font-size:.5em;letter-spacing:0;font-weight:500}
+#title h1 rt{font-size:.28em;-webkit-text-stroke:0;color:var(--soft)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.step{font-size:12px;color:var(--soft);font-variant-numeric:tabular-nums;letter-spacing:.08em}
+#act{font-family:var(--story);font-weight:700;font-size:clamp(15px,calc(.6vw + .6vh + 6px),19px);color:#fff;background:var(--taxi);border:0;border-radius:999px;padding:10px 22px;cursor:pointer;
+  box-shadow:0 3px 0 #3f8db2}
+#act:active{transform:translateY(2px);box-shadow:0 1px 0 #3f8db2}
+#act[disabled]{opacity:.4;cursor:default}
+.left{display:flex;align-items:center;gap:12px}
+#back{font-family:var(--story);font-weight:700;font-size:14px;color:var(--soft);background:transparent;border:1.5px solid rgba(93,111,128,.4);border-radius:999px;padding:8px 16px;cursor:pointer}
+#back:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+#act:focus-visible,.snd:focus-visible,#title:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+#title{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;gap:10px;
+  padding-top:calc(env(safe-area-inset-top,0px) + 5vh);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  cursor:pointer;transition:opacity 1s}
+#title.gone{opacity:0;pointer-events:none}
+#title h1{margin:0;font-family:var(--display);font-weight:500;font-size:clamp(36px,min(12vw,13vh),110px);letter-spacing:.18em;color:var(--ink)}
+#title h1 span{color:#fff;-webkit-text-stroke:1.5px var(--ink);paint-order:stroke}
+#title .sub{margin:0;font-size:clamp(14px,3.8vw,17px);color:var(--soft);letter-spacing:.12em}
+#title .credit{margin:6px 0 0;font-size:12px;color:var(--soft);opacity:.85}
+.closeup{position:fixed;left:max(16px,env(safe-area-inset-left,0px));top:calc(env(safe-area-inset-top,0px) + 60px);width:min(44vw,30vh,320px);
+  opacity:0;transform:translateY(-8px) scale(.9) rotate(-4deg);transform-origin:20% 80%;transition:opacity .45s,transform .45s cubic-bezier(.3,1.5,.5,1);pointer-events:none}
+.closeup.show{opacity:1;transform:none}
+.closeup .frame{border-radius:20px;border:4px solid #fff;background:#e6f4f2;box-shadow:0 8px 24px rgba(42,58,74,.18);overflow:hidden;transform:rotate(-2deg)}
+.closeup img{display:block;width:100%;height:auto}
+.closeup .say{position:absolute;right:-12px;top:-14px;font-family:var(--display);font-size:clamp(15px,4.2vw,19px);color:var(--ink);background:#fff;border-radius:16px;padding:6px 12px;box-shadow:0 4px 12px rgba(42,58,74,.15);transform:rotate(4deg)}
+.closeup .say::after{content:"";position:absolute;left:14px;bottom:-7px;border:7px solid transparent;border-top-color:#fff;border-bottom:0}
+.closeup.show.shake img{animation:headshake .9s ease-in-out .35s 2}
+@keyframes headshake{0%,100%{transform:none}20%{transform:rotate(-4deg) translateX(-3%)}50%{transform:rotate(4deg) translateX(3%)}80%{transform:rotate(-2deg)}}
+@media (prefers-reduced-motion:reduce){.closeup{transition:opacity .3s;transform:none}.closeup.show.shake img{animation:none}}
+.hint{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 8vh);text-align:center;font-family:var(--display);font-size:15px;letter-spacing:.35em;color:var(--ink);animation:breathe 2.4s ease-in-out infinite;cursor:pointer}
+@keyframes breathe{50%{opacity:.35}}
+/* 横向きで背の低い画面（スマホ横・小さめのiPad横）では、文章カードを右側に縦置き */
+@media (orientation:landscape) and (max-height:560px){
+  #card{left:auto;top:0;width:min(44vw,440px);display:flex;align-items:flex-end;padding-top:calc(env(safe-area-inset-top,0px) + 56px);padding-left:0}
+  .inner{max-width:none;width:100%}
+  #title{padding-top:calc(env(safe-area-inset-top,0px) + 3vh)}
+}
+@media (prefers-reduced-motion:reduce){.hint{animation:none}}

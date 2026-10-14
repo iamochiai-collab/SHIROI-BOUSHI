@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="あまんきみこ「白いぼうし」をもとにした、タップで進むあらすじ絵本。">
+<title>白いぼうし</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Zen+Maru+Gothic:wght@500;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="scene" aria-label="空色のタクシーが走る初夏の町"></canvas>
+
+<div class="top" id="top" style="opacity:0">
+  <span class="where" id="where"><ruby>堀<rt>ほり</rt></ruby>ばた</span>
+  <button class="snd" id="snd" type="button" aria-pressed="true"><ruby>音<rt>おと</rt></ruby> オン</button>
+</div>
+
+<div id="card" class="away" aria-live="polite">
+  <div class="inner">
+    <p id="line"></p>
+    <div class="row">
+      <div class="left"><button id="back" type="button" hidden>もどる</button><span class="step" id="step">1 / 9</span></div>
+      <button id="act" type="button">つぎへ</button>
+    </div>
+  </div>
+</div>
+
+<div class="closeup shake" id="closeupM" aria-hidden="true"><div class="frame"><img alt="" src="assets/img/matsui-shake.webp"></div><span class="say">いいえ</span></div>
+<div class="closeup" id="closeup" aria-hidden="true"><div class="frame"><img alt="" src="assets/img/girl-leaning.webp"></div><span class="say">はやく！</span></div>
+
+<div id="title" role="button" tabindex="0" aria-label="タップしてはじめる">
+  <h1><ruby>白<rt>しろ</rt></ruby>い<span>ぼうし</span></h1>
+  <p class="sub"><ruby>空色<rt>そらいろ</rt></ruby>のタクシーと、<ruby>夏<rt>なつ</rt></ruby>みかんの<ruby>匂<rt>にお</rt></ruby>い</p>
+  <p class="credit">あまんきみこ「<ruby>白<rt>しろ</rt></ruby>いぼうし」をもとにしたあらすじ<ruby>絵本<rt>えほん</rt></ruby></p>
+</div>
+<div class="hint" id="hint">タップして はじめる</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
